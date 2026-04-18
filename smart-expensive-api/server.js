@@ -1,28 +1,39 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 const app = express();
-app.use(cors()); // 🔥 TRÈS IMPORTANT
+
+// ✅ CORS
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:5173"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
-// routes
-const authRoutes = require('./routes/authRoutes');
-app.use('/auth', authRoutes);
+// 📦 ROUTES
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
 
-const userRoutes = require('./routes/userRoutes');
+// ✅ PREFIX GLOBAL /api
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/expenses", expenseRoutes);
 
-app.use('/user', userRoutes);
-
-// DB connect
-mongoose.connect(process.env.MONGO_URI)
+// DB
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connecté"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
+// SERVER
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });
