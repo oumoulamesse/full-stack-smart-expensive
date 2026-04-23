@@ -21,11 +21,13 @@ app.use(express.json());
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const analyticsRoutes = require("./routes/analytics"); // ✅ AJOUT
 
 // ✅ PREFIX GLOBAL /api
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/analytics", analyticsRoutes); // ✅ AJOUT
 
 // DB
 mongoose
