@@ -1,0 +1,16 @@
+
+services:
+
+  backend:
+    build: ./smart-expensive-api
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./smart-expensive-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
