@@ -4,7 +4,9 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - NODE_ENV=production
+      - MONGO_URI=mongodb+srv://devuserai:passer123@cluster-expensive.lingsbj.mongodb.net/?appName=Cluster-expensive
+      - PORT=5000
+      - JWT_SECRET=supersecretkey
     restart: unless-stopped
 
   frontend:
